@@ -15,7 +15,7 @@ with open('dependencies.yaml', 'r') as f:
 # Resolve
 resolvedDependencies = []
 for d in get_dependencies('ext', dependencies):
-  branch = dependencies['ext'][d]['branch']
+  branch = dependencies['ext'][0]['branch']
 
   # Skip parsoid which is a virtual extension
   if d == 'parsoid':

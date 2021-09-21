@@ -21,4 +21,4 @@ for d in get_dependencies('ext', dependencies):
   d = 'mediawiki/extensions/' + d
   d = d.replace('/extensions/skins/', '/skins/')
   resolvedDependencies.append(d)
-print(' '.join(resolvedDependencies) + get_dependencies('ext', dependencies)[d]['branch'])
+print(' '.join(resolvedDependencies) + dependencies['ext'][d]['branch'])

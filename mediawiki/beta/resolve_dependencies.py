@@ -10,7 +10,7 @@ if 'MEDIAWIKI_VERSION' in environ and environ['MEDIAWIKI_VERSION'] == 'REL1_35':
 
 # Add dependencies of target extension
 with open('dependencies.yaml', 'r') as f:
-    dependencies['ext'] = yaml.load(f)
+    dependencies['ext'] = yaml.load(f, Loader=yaml.FullLoader)
 
 # Resolve
 resolvedDependencies = []

@@ -9,7 +9,7 @@ if 'MEDIAWIKI_VERSION' in environ and environ['MEDIAWIKI_VERSION'] == 'REL1_35':
   dependencies['EventLogging'].remove('EventBus')
 
 # Add dependencies of target extension
-with open('dependencies.yaml', 'r') as f:
+with open('dependencies', 'r') as f:
     dependencies['ext'] = yaml.load(f, Loader=yaml.FullLoader)
 
 # Resolve

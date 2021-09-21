@@ -15,10 +15,12 @@ with open('dependencies.yaml', 'r') as f:
 # Resolve
 resolvedDependencies = []
 for d in get_dependencies('ext', dependencies):
+  branch = dependencies['ext'][d]['branch']
+
   # Skip parsoid which is a virtual extension
   if d == 'parsoid':
     continue
   d = 'mediawiki/extensions/' + d
   d = d.replace('/extensions/skins/', '/skins/')
   resolvedDependencies.append(d)
-print(' '.join(resolvedDependencies) + dependencies['ext'][d]['branch'])
+print(' '.join(resolvedDependencies) + branch)

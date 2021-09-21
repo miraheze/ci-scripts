@@ -18,9 +18,11 @@ for d in get_dependencies('ext', dependencies):
   repo = ''
   branch = ''
   if 'repo' in dependencies['ext'][d]:
-    repo = '|' + dependencies['ext'][d]['repo']
+    if dependencies['ext'][d]['repo'] not in ('auto','default'):
+      repo = '|' + dependencies['ext'][d]['repo']
     if 'branch' in dependencies['ext'][d]:
-      branch = '|' + dependencies['ext'][d]['branch']
+      if dependencies['ext'][d]['branch'] not in ('auto','default'):
+        branch = '|' + dependencies['ext'][d]['branch']
 
   # Skip parsoid which is a virtual extension
   if d == 'parsoid':

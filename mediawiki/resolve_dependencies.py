@@ -18,7 +18,7 @@ for d in get_dependencies('ext', dependencies):
   repo = ''
   branch = ''
   if d in dependencies['ext'] and 'repo' in dependencies['ext'][d]:
-    if dependencies['ext'][d]['repo'] not in ('auto','default'):
+    if dependencies['ext'][d]['repo'] not in ('auto','default') or 'branch' in dependencies['ext'][d] and dependencies['ext'][d]['branch'] not in ('auto','default'):
       repo = '|' + dependencies['ext'][d]['repo']
     if 'branch' in dependencies['ext'][d]:
       if dependencies['ext'][d]['branch'] not in ('auto','default'):

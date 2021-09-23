@@ -17,7 +17,7 @@ resolvedDependencies = []
 for d in get_dependencies('ext', dependencies):
   repo = ''
   branch = ''
-  if 'repo' in dependencies['ext'][d]:
+  if d in dependencies['ext'] and 'repo' in dependencies['ext'][d]:
     if dependencies['ext'][d]['repo'] not in ('auto','default'):
       repo = '|' + dependencies['ext'][d]['repo']
     if 'branch' in dependencies['ext'][d]:

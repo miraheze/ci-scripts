@@ -1,3 +1,5 @@
+<?php
+
 define( 'MW_DB', 'wikidb' );
 
 require_once "$IP/extensions/CreateWiki/includes/WikiInitialise.php";
@@ -32,9 +34,9 @@ $wgCreateWikiGlobalWiki = 'wikidb';
 $wgCreateWikiDatabase = 'wikidb';
 $wgCreateWikiCacheDirectory = "$IP/cache";
 
-$wgHooks['MediaWikiServices'][] = 'wfOnMediaWikiServices';
+$wgHooks['MediaWikiServices'][] = 'insertWiki';
 
-function wfOnMediaWikiServices( MediaWiki\MediaWikiServices $services ) {
+function insertWiki() {
 	try {
 		$dbw = wfGetDB( DB_PRIMARY );
 
@@ -66,3 +68,5 @@ function wfOnMediaWikiServices( MediaWiki\MediaWikiServices $services ) {
 $wi->readCache();
 $wi->config->extractAllGlobals( $wi->dbname );
 $wgConf = $wi->config;
+
+?>

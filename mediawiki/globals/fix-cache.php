@@ -1,4 +1,3 @@
-<?php
 
 $wgHooks['MediaWikiServices'][] = 'wfOnMediaWikiServices';
 

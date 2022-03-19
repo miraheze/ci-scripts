@@ -1,5 +1,3 @@
-<?php
-
 define( 'MW_DB', 'wikidb' );
 
 require_once "$IP/extensions/CreateWiki/includes/WikiInitialise.php";

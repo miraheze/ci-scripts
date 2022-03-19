@@ -1,8 +1,11 @@
+<?php
 
-$wgHooks['MediaWikiServices'][] = 'wfOnMediaWikiServices';
+$wgHooks['MediaWikiServices'][] = 'fixCache';
 
-function wfOnMediaWikiServices( MediaWiki\MediaWikiServices $services ) {
+function fixCache() {
 	global $wgMainCacheType;
 
 	$wgMainCacheType = CACHE_NONE;
 }
+
+?>

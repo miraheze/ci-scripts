@@ -1,5 +1,7 @@
 <?php
 
+$wgWikimediaJenkinsCI = true;
+
 define( 'MW_DB', 'wikidb' );
 
 require_once "$IP/extensions/CreateWiki/includes/WikiInitialise.php";
@@ -36,7 +38,7 @@ $wgCreateWikiCacheDirectory = "$IP/cache";
 
 $wgHooks['MediaWikiServices'][] = 'insertWiki';
 
-function insertWiki() {
+function insertWiki( MediaWiki\MediaWikiServices $services ) {
 	try {
 		$dbw = wfGetDB( DB_PRIMARY );
 

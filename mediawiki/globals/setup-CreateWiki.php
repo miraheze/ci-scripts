@@ -40,8 +40,7 @@ $wgHooks['MediaWikiServices'][] = 'insertWiki';
 
 function insertWiki( MediaWiki\MediaWikiServices $services ) {
 	try {
-		$dbw = $services->getDBLoadBalancerFactory()
-			->getMainLB()->getConnection( DB_PRIMARY );
+		$dbw = $services->getDBLoadBalancer()->getConnectionRef( DB_PRIMARY );
 
 		$dbw->insert(
 			'cw_wikis',

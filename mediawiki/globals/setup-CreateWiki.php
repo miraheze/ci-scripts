@@ -2,7 +2,9 @@
 
 $wgWikimediaJenkinsCI = true;
 
-define( 'MW_DB', 'wikidb' );
+if ( !$wgCommandLineMode ) {
+	define( 'MW_DB', 'wikidb' );
+}
 
 require_once "$IP/extensions/CreateWiki/includes/WikiInitialise.php";
 $wi = new WikiInitialise();

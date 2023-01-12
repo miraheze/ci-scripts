@@ -2,7 +2,6 @@
 
 use MediaWiki\MediaWikiServices;
 use Wikimedia\Rdbms\DBQueryError;
-use Wikimedia\Rdbms\DBUnexpectedError;
 
 $wgWikimediaJenkinsCI = true;
 
@@ -66,7 +65,7 @@ function insertWiki( MediaWikiServices $services ) {
 			__METHOD__,
 			[ 'IGNORE' ]
 		);
-	} catch ( DBQueryError | DBUnexpectedError $e ) {
+	} catch ( DBQueryError $e ) {
 		return;
 	}
 }

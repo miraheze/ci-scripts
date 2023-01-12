@@ -1,12 +1,8 @@
 # A script to resolve dependencies of MediaWiki extension for Quibble test
 import yaml
 
-from os import environ
 # pf for https://raw.githubusercontent.com/wikimedia/integration-config/master/zuul/parameter_functions.py
 from pf import dependencies, get_dependencies
-
-if 'MEDIAWIKI_VERSION' in environ and environ['MEDIAWIKI_VERSION'] == 'REL1_35':
-  dependencies['EventLogging'].remove('EventBus')
 
 # Add dependencies of target extension
 with open('dependencies', 'r') as f:

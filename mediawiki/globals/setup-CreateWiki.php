@@ -1,5 +1,9 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+use Wikimedia\Rdbms\DBQueryError;
+use Wikimedia\Rdbms\DBUnexpectedError;
+
 $wgWikimediaJenkinsCI = true;
 
 define( 'CW_DB', 'wikidb' );
@@ -38,9 +42,11 @@ $wgCreateWikiCacheDirectory = "$IP/cache";
 
 $wgHooks['MediaWikiServices'][] = 'insertWiki';
 
-function insertWiki( MediaWiki\MediaWikiServices $services ) {
+function insertWiki( MediaWikiServices $services ) {
 	try {
-		$dbw = wfGetDB( DB_PRIMARY );
+		static $dbw = null;
+		$dbw ??= $services->getDBLoadBalancer()
+			->getMaintenanceConnectionRef( DB_PRIMARY );
 
 		$dbw->insert(
 			'cw_wikis',
@@ -62,7 +68,7 @@ function insertWiki( MediaWiki\MediaWikiServices $services ) {
 			__METHOD__,
 			[ 'IGNORE' ]
 		);
-	} catch ( Wikimedia\Rdbms\DBQueryError $e ) {
+	} catch ( DBQueryError | DBUnexpectedError $e ) {
 		return;
 	}
 }

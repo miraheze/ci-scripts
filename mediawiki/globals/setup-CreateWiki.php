@@ -44,9 +44,7 @@ $wgHooks['MediaWikiServices'][] = 'insertWiki';
 
 function insertWiki( MediaWikiServices $services ) {
 	try {
-		static $dbw = null;
-		$dbw ??= $services->getDBLoadBalancer()
-			->getMaintenanceConnectionRef( DB_PRIMARY );
+		$dbw = wfDBConnection();
 
 		$dbw->insert(
 			'cw_wikis',
@@ -71,6 +69,12 @@ function insertWiki( MediaWikiServices $services ) {
 	} catch ( DBQueryError | DBUnexpectedError $e ) {
 		return;
 	}
+}
+
+function wfDBConnection() {
+	return MediaWikiServices::getInstance()
+		->getDBLoadBalancer()
+		->getMaintenanceConnectionRef( DB_PRIMARY );
 }
 
 $wi->readCache();

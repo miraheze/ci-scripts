@@ -42,6 +42,10 @@ $wgCreateWikiCacheDirectory = "$IP/cache";
 $wgHooks['MediaWikiServices'][] = 'insertWiki';
 
 function insertWiki( MediaWikiServices $services ) {
+	if ( method_exists( $services, 'isStorageDisabled' ) && $services->isStorageDisabled() ) {
+		return;
+	}
+
 	try {
 		$dbw = wfInitDBConnection();
 

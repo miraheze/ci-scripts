@@ -42,17 +42,6 @@ $wgCreateWikiCacheDirectory = "$IP/cache";
 $wgHooks['MediaWikiServices'][] = 'insertWiki';
 
 function insertWiki( MediaWikiServices $services ) {
-	static $finished = false;
-	static $exited = false;
-	if ( $finished ) {
-		if ( !$exited ) {
-			MediawikiServices::resetGlobalInstance();
-		}
-
-		$exited = true;
-		return;
-	}
-
 	try {
 		$dbw = wfInitDBConnection();
 
@@ -76,8 +65,6 @@ function insertWiki( MediaWikiServices $services ) {
 			__METHOD__,
 			[ 'IGNORE' ]
 		);
-
-		$finished = true;
 	} catch ( DBQueryError $e ) {
 		return;
 	}

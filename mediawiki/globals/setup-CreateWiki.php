@@ -39,6 +39,8 @@ $wgCreateWikiGlobalWiki = 'wikidb';
 $wgCreateWikiDatabase = 'wikidb';
 $wgCreateWikiCacheDirectory = "$IP/cache";
 
+$wgManageWikiDatabase = 'wikidb';
+
 $wgHooks['MediaWikiServices'][] = 'insertWiki';
 
 function insertWiki( MediaWikiServices $services ) {

@@ -56,7 +56,7 @@ function insertWiki( MediaWikiServices $services ) {
 				'wiki_language' => 'en',
 				'wiki_private' => (int)0,
 				'wiki_creation' => $dbw->timestamp(),
-				'wiki_category' => 'uncategorised',
+				'wiki_category' => 'uncategorized',
 				'wiki_closed' => (int)0,
 				'wiki_deleted' => (int)0,
 				'wiki_locked' => (int)0,

@@ -45,7 +45,7 @@ $wgHooks['MediaWikiServices'][] = 'insertWiki';
 
 function insertWiki( MediaWikiServices $services ) {
 	try {
-		if ( getenv( 'WIKI_CREATION_SCRIPT_EXECUTED' ) ) {
+		if ( getenv( 'WIKI_CREATION_SQL_EXECUTED' ) ) {
 			return;
 		}
 
@@ -73,9 +73,8 @@ function insertWiki( MediaWikiServices $services ) {
 			[ 'IGNORE' ]
 		);
 
-		putenv( 'WIKI_CREATION_SCRIPT_EXECUTED=true' );
+		putenv( 'WIKI_CREATION_SQL_EXECUTED=true' );
 	} catch ( DBQueryError $e ) {
-		var_dump( $e );
 		return;
 	}
 }

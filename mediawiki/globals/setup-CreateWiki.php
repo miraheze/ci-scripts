@@ -67,6 +67,8 @@ function insertWiki( MediaWikiServices $services ) {
 			__METHOD__,
 			[ 'IGNORE' ]
 		);
+
+		$services->resetServiceForTesting( 'DBLoadBalancer' );
 	} catch ( DBQueryError $e ) {
 		return;
 	}

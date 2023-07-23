@@ -49,8 +49,6 @@ function insertWiki( MediaWikiServices $services ) {
 			return;
 		}
 
-		echo 'Running SQL to insert wikidb into cw_wikis';
-
 		$db = wfInitDBConnection();
 
 		$db->selectDomain( 'wikidb' );

@@ -7,6 +7,10 @@ $wgWikimediaJenkinsCI = true;
 
 define( 'CW_DB', 'wikidb' );
 
+if ( !defined( 'MW_PHPUNIT_TEST' ) ) {
+	define( 'MW_PHPUNIT_TEST', true );
+}
+
 require_once "$IP/extensions/CreateWiki/includes/WikiInitialise.php";
 $wi = new WikiInitialise();
 

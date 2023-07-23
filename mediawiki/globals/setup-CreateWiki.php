@@ -45,6 +45,12 @@ $wgHooks['MediaWikiServices'][] = 'insertWiki';
 
 function insertWiki( MediaWikiServices $services ) {
 	try {
+		if ( file_exists( MW_INSTALL_PATH . '/maintenance/sql_already_ran.txt' ) ) {
+			// We use this so we don't continually connect to the
+			// database again, resulting in "to many connections"
+			return;
+		}
+
 		$db = wfInitDBConnection();
 
 		$db->insert(
@@ -67,6 +73,8 @@ function insertWiki( MediaWikiServices $services ) {
 			__METHOD__,
 			[ 'IGNORE' ]
 		);
+
+		file_put_contents( MW_INSTALL_PATH . '/maintenance/sql_already_ran.txt', 'yes' );
 	} catch ( DBQueryError $e ) {
 		return;
 	}

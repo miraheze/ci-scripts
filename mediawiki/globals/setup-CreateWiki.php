@@ -44,11 +44,22 @@ $wgManageWikiDatabase = 'wikidb';
 $wgHooks['MediaWikiServices'][] = 'insertWiki';
 
 function insertWiki( MediaWikiServices $services ) {
+	$cache = $services->getMainWANObjectCache();
+	$cacheKey = 'wiki_creation_sql_executed';
+
+	if ( $cache->get( $cacheKey ) ) {
+		// If already executed, return without running
+		// the SQL or connecting to database again
+		return;
+	}
+
 	$db = wfInitDBConnection();
 
 	$db->begin();
 	$db->sourceFile( MW_INSTALL_PATH . '/maintenance/add-wiki.sql' );
 	$db->commit();
+
+	$cache->set( $cacheKey, true );
 }
 
 function wfInitDBConnection() {

@@ -49,7 +49,7 @@ function insertWiki( MediaWikiServices $services ) {
 			return;
 		}
 
-		var_dump( 'running SQL' );
+		echo 'Running SQL to insert wikidb into cw_wikis';
 
 		$db = wfInitDBConnection();
 

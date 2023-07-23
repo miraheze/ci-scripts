@@ -47,7 +47,7 @@ function insertWiki( MediaWikiServices $services ) {
 	$db = wfInitDBConnection();
 
 	$db->begin();
-	$db->query( 'SOURCE ' . __DIR__ . '/../sql/add-wiki.sql;' );
+	$db->query( 'SOURCE ' . MW_INSTALL_PATH . '/maintenance/add-wiki.sql;' );
 	$db->commit();
 }
 

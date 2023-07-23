@@ -1,4 +1,4 @@
-INSERT IGNORE INTO cw_wikis (
+INSERT IGNORE INTO wikidb.cw_wikis (
     wiki_dbname,
     wiki_dbcluster,
     wiki_sitename,

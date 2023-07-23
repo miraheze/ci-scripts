@@ -77,6 +77,7 @@ function insertWiki( MediaWikiServices $services ) {
 
 		file_put_contents( MW_INSTALL_PATH . '/maintenance/createwiki_sql_already_ran.txt', 'yes' );
 	} catch ( DBQueryError $e ) {
+		var_dump( $e );
 		return;
 	}
 }

@@ -26,4 +26,4 @@ INSERT IGNORE INTO wikidb.cw_wikis (
     0,
     0,
     'http://127.0.0.1:9412'
-)
+);

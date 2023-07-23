@@ -45,11 +45,11 @@ $wgHooks['MediaWikiServices'][] = 'insertWiki';
 
 function insertWiki( MediaWikiServices $services ) {
 	try {
-		if ( file_exists( MW_INSTALL_PATH . '/maintenance/createwiki_sql_already_ran.txt' ) ) {
-			// We use this so we don't continually connect to the
-			// database again, resulting in "to many connections"
+		if ( getenv( 'WIKI_CREATION_SCRIPT_EXECUTED' ) ) {
 			return;
 		}
+
+		var_dump( 'running SQL' );
 
 		$db = wfInitDBConnection();
 
@@ -75,7 +75,7 @@ function insertWiki( MediaWikiServices $services ) {
 			[ 'IGNORE' ]
 		);
 
-		file_put_contents( MW_INSTALL_PATH . '/maintenance/createwiki_sql_already_ran.txt', 'yes' );
+		putenv( 'WIKI_CREATION_SCRIPT_EXECUTED=true' );
 	} catch ( DBQueryError $e ) {
 		var_dump( $e );
 		return;

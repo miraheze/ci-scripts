@@ -50,6 +50,33 @@ function insertWiki( MediaWikiServices $services ) {
 	$wgCreateWikiDatabase = 'wikidb';
 	$wgCreateWikiCacheDirectory = MW_INSTALL_PATH . '/cache';
 
+	$wi = new WikiInitialise();
+
+	$wi->setVariables(
+		"$IP/cache",
+		[
+			''
+		],
+		[
+			'127.0.0.1' => ''
+		]
+	);
+
+	$wi->config->settings += [
+		'cwClosed' => [
+			'default' => false,
+		],
+		'cwInactive' => [
+			'default' => false,
+		],
+		'cwPrivate' => [
+			'default' => false,
+		],
+		'cwExperimental' => [
+			'default' => false,
+		],
+	];
+
 	$wi->readCache();
 	$wi->config->extractAllGlobals( $wi->dbname );
 	$wgConf = $wi->config;

@@ -53,7 +53,7 @@ function insertWiki( MediaWikiServices $services ) {
 	$wi = new WikiInitialise();
 
 	$wi->setVariables(
-		"$IP/cache",
+		MW_INSTALL_PATH . '/cache',
 		[
 			''
 		],

@@ -8,79 +8,11 @@ $wgWikimediaJenkinsCI = true;
 define( 'CW_DB', 'wikidb' );
 
 require_once "$IP/extensions/CreateWiki/includes/WikiInitialise.php";
-$wi = new WikiInitialise();
-
-$wi->setVariables(
-	"$IP/cache",
-	[
-		''
-	],
-	[
-		'127.0.0.1' => ''
-	]
-);
-
-$wi->config->settings += [
-	'cwClosed' => [
-		'default' => false,
-	],
-	'cwInactive' => [
-		'default' => false,
-	],
-	'cwPrivate' => [
-		'default' => false,
-	],
-	'cwExperimental' => [
-		'default' => false,
-	],
-];
-
-$wgCreateWikiGlobalWiki = 'wikidb';
-$wgCreateWikiDatabase = 'wikidb';
-$wgCreateWikiCacheDirectory = "$IP/cache";
-
-$wgManageWikiDatabase = 'wikidb';
 
 $wgHooks['MediaWikiServices'][] = 'insertWiki';
 
 function insertWiki( MediaWikiServices $services ) {
-	global $wgCreateWikiGlobalWiki, $wgCreateWikiDatabase, $wgCreateWikiCacheDirectory, $wi, $wgConf;
-
-	$wgCreateWikiGlobalWiki = 'wikidb';
-	$wgCreateWikiDatabase = 'wikidb';
-	$wgCreateWikiCacheDirectory = MW_INSTALL_PATH . '/cache';
-
-	$wi = new WikiInitialise();
-
-	$wi->setVariables(
-		MW_INSTALL_PATH . '/cache',
-		[
-			''
-		],
-		[
-			'127.0.0.1' => ''
-		]
-	);
-
-	$wi->config->settings += [
-		'cwClosed' => [
-			'default' => false,
-		],
-		'cwInactive' => [
-			'default' => false,
-		],
-		'cwPrivate' => [
-			'default' => false,
-		],
-		'cwExperimental' => [
-			'default' => false,
-		],
-	];
-
-	$wi->readCache();
-	$wi->config->extractAllGlobals( $wi->dbname );
-	$wgConf = $wi->config;
-
+	wfLoadConfiguration();
 	try {
 		if ( getenv( 'WIKI_CREATION_SQL_EXECUTED' ) ) {
 			return;
@@ -116,15 +48,51 @@ function insertWiki( MediaWikiServices $services ) {
 	}
 }
 
+function wfLoadConfiguration() {
+	global $wgCreateWikiGlobalWiki, $wgCreateWikiDatabase,
+		$wgCreateWikiCacheDirectory, $wgConf;
+
+	$wgCreateWikiGlobalWiki = 'wikidb';
+	$wgCreateWikiDatabase = 'wikidb';
+	$wgCreateWikiCacheDirectory = MW_INSTALL_PATH . '/cache';
+
+	$wi = new WikiInitialise();
+
+	$wi->setVariables(
+		MW_INSTALL_PATH . '/cache',
+		[
+			''
+		],
+		[
+			'127.0.0.1' => ''
+		]
+	);
+
+	$wi->config->settings += [
+		'cwClosed' => [
+			'default' => false,
+		],
+		'cwInactive' => [
+			'default' => false,
+		],
+		'cwPrivate' => [
+			'default' => false,
+		],
+		'cwExperimental' => [
+			'default' => false,
+		],
+	];
+
+	$wi->readCache();
+	$wi->config->extractAllGlobals( $wi->dbname );
+	$wgConf = $wi->config;
+}
+
 function wfInitDBConnection() {
 	return MediaWikiServices::getInstance()->getDatabaseFactory()->create( 'mysql', [
 		'host' => $GLOBALS['wgDBserver'],
 		'user' => 'root',
 	] );
 }
-
-$wi->readCache();
-$wi->config->extractAllGlobals( $wi->dbname );
-$wgConf = $wi->config;
 
 ?>

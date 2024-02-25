@@ -44,6 +44,16 @@ $wgManageWikiDatabase = 'wikidb';
 $wgHooks['MediaWikiServices'][] = 'insertWiki';
 
 function insertWiki( MediaWikiServices $services ) {
+	global $wgCreateWikiGlobalWiki, $wgCreateWikiDatabase, $wgCreateWikiCacheDirectory, $wi, $wgConf;
+
+	$wgCreateWikiGlobalWiki = 'wikidb';
+	$wgCreateWikiDatabase = 'wikidb';
+	$wgCreateWikiCacheDirectory = MW_INSTALL_PATH . '/cache';
+
+	$wi->readCache();
+	$wi->config->extractAllGlobals( $wi->dbname );
+	$wgConf = $wi->config;
+
 	try {
 		if ( getenv( 'WIKI_CREATION_SQL_EXECUTED' ) ) {
 			return;

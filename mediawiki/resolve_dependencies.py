@@ -4,8 +4,11 @@ import yaml
 # pf for https://raw.githubusercontent.com/wikimedia/integration-config/master/zuul/parameter_functions.py
 from pf import dependencies, get_dependencies
 
+# Get dependency file path from argument
+dependencies_file = sys.argv[1]
+
 # Add dependencies of target extension
-with open('dependencies', 'r') as f:
+with open(dependencies_file, 'r') as f:
     dependencies['ext'] = yaml.load(f, Loader=yaml.SafeLoader)
 
 # Resolve

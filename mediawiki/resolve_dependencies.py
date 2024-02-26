@@ -8,13 +8,17 @@ from pf import dependencies, get_dependencies
 # Get dependency file path from argument
 dependencies_file = sys.argv[1]
 
+recurse = True  # Default to recursion
+if len(sys.argv) >= 3 and sys.argv[2] == '--no-recurse':
+   recurse = False
+
 # Add dependencies of target extension
 with open(dependencies_file, 'r') as f:
     dependencies['ext'] = yaml.load(f, Loader=yaml.SafeLoader)
 
 # Resolve
 resolvedDependencies = []
-for d in get_dependencies('ext', dependencies):
+for d in get_dependencies('ext', dependencies, recurse):
   repo = ''
   branch = ''
   if d in dependencies['ext'] and 'repo' in dependencies['ext'][d]:

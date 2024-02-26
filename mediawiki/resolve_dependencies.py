@@ -1,4 +1,5 @@
 # A script to resolve dependencies of MediaWiki extension for Quibble test
+import sys
 import yaml
 
 # pf for https://raw.githubusercontent.com/wikimedia/integration-config/master/zuul/parameter_functions.py

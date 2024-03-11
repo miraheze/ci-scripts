@@ -21,9 +21,10 @@ function insertWiki( MediaWikiServices $services ) {
 		$db = wfInitDBConnection();
 
 		$db->selectDomain( 'wikidb' );
-		$db->insert(
-			'cw_wikis',
-			[
+		$db->newInsertQueryBuilder()
+			->insertInto( 'cw_wikis' )
+			->ignore()
+			->rows( [
 				'wiki_dbname' => 'wikidb',
 				'wiki_dbcluster' => 'c1',
 				'wiki_sitename' => 'TestWiki',
@@ -36,11 +37,10 @@ function insertWiki( MediaWikiServices $services ) {
 				'wiki_locked' => (int)0,
 				'wiki_inactive' => (int)0,
 				'wiki_inactive_exempt' => (int)0,
-				'wiki_url' => 'http://127.0.0.1:9412'
-			],
-			__METHOD__,
-			[ 'IGNORE' ]
-		);
+				'wiki_url' => 'http://127.0.0.1:9412',
+			] )
+			->caller( __METHOD__ )
+			->execute();
 
 		putenv( 'WIKI_CREATION_SQL_EXECUTED=true' );
 	} catch ( DBQueryError $e ) {

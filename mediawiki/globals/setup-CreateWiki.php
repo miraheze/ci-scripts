@@ -24,7 +24,7 @@ function insertWiki( MediaWikiServices $services ) {
 		$db->newInsertQueryBuilder()
 			->insertInto( 'cw_wikis' )
 			->ignore()
-			->rows( [
+			->row( [
 				'wiki_dbname' => 'wikidb',
 				'wiki_dbcluster' => 'c1',
 				'wiki_sitename' => 'TestWiki',

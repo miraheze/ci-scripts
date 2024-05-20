@@ -1,13 +1,14 @@
 <?php
 
 use MediaWiki\MediaWikiServices;
+use Miraheze\CreateWiki\WikiInitialize;
 use Wikimedia\Rdbms\DBQueryError;
 
 $wgWikimediaJenkinsCI = true;
 
 define( 'CW_DB', 'wikidb' );
 
-require_once "$IP/extensions/CreateWiki/includes/WikiInitialise.php";
+require_once "$IP/extensions/CreateWiki/includes/WikiInitialize.php";
 
 $wgHooks['MediaWikiServices'][] = 'insertWiki';
 
@@ -56,7 +57,7 @@ function wfLoadConfiguration() {
 	$wgCreateWikiDatabase = 'wikidb';
 	$wgCreateWikiCacheDirectory = MW_INSTALL_PATH . '/cache';
 
-	$wi = new WikiInitialise();
+	$wi = new WikiInitialize();
 
 	$wi->setVariables(
 		MW_INSTALL_PATH . '/cache',

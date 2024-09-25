@@ -5,6 +5,7 @@ use Miraheze\CreateWiki\WikiInitialize;
 use Wikimedia\Rdbms\DBQueryError;
 
 $wgWikimediaJenkinsCI = true;
+$wgCreateWikiUsePhpCache = true;
 
 define( 'CW_DB', 'wikidb' );
 

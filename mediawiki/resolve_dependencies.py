@@ -32,10 +32,10 @@ for d in get_dependencies('ext', dependencies, recurse):
   if d == 'parsoid':
     continue
 
-  # Temporary: DiscussionTools CI is failing for 1.42
+  # Temporary: Skip DiscussionTools because it is failing on 1.42
   # TODO: remove when REL1_43 is used in CI
   if d == 'DiscussionTools':
-    branch = '|REL1_42'
+    continue
 
   d = 'mediawiki/extensions/' + d
   d = d.replace('/extensions/skins/', '/skins/')

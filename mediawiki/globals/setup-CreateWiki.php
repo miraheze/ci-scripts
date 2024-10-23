@@ -6,11 +6,13 @@ use Wikimedia\Rdbms\DBQueryError;
 
 $wgWikimediaJenkinsCI = true;
 
-define( 'CW_DB', 'wikidb' );
+if ( file_exists( "$IP/extensions/CreateWiki/includes/WikiInitialize.php" ) ) {
+	define( 'CW_DB', 'wikidb' );
 
-require_once "$IP/extensions/CreateWiki/includes/WikiInitialize.php";
+	require_once "$IP/extensions/CreateWiki/includes/WikiInitialize.php";
 
-$wgHooks['MediaWikiServices'][] = 'insertWiki';
+	$wgHooks['MediaWikiServices'][] = 'insertWiki';
+}
 
 function insertWiki( MediaWikiServices $services ) {
 	wfLoadConfiguration();

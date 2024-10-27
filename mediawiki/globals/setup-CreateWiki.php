@@ -81,9 +81,6 @@ function wfLoadConfiguration() {
 		'cwPrivate' => [
 			'default' => false,
 		],
-		'cwExperimental' => [
-			'default' => false,
-		],
 	];
 
 	$wi->readCache();

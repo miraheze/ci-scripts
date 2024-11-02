@@ -53,15 +53,15 @@ function insertWiki( MediaWikiServices $services ) {
 
 function wfLoadConfiguration() {
 	global $wgCreateWikiGlobalWiki, $wgCreateWikiDatabase,
-		$wgCreateWikiCacheDirectory, $wgConf;
+		$wgCreateWikiCacheDirectory, $wgConf, $wgWikiInitialize;
 
 	$wgCreateWikiGlobalWiki = 'wikidb';
 	$wgCreateWikiDatabase = 'wikidb';
 	$wgCreateWikiCacheDirectory = MW_INSTALL_PATH . '/cache';
 
-	$wi = new WikiInitialize();
+	$wgWikiInitialize = new WikiInitialize();
 
-	$wi->setVariables(
+	$wgWikiInitialize->setVariables(
 		MW_INSTALL_PATH . '/cache',
 		[
 			''
@@ -71,7 +71,7 @@ function wfLoadConfiguration() {
 		]
 	);
 
-	$wi->config->settings += [
+	$wgWikiInitialize->config->settings += [
 		'cwClosed' => [
 			'default' => false,
 		],
@@ -83,9 +83,9 @@ function wfLoadConfiguration() {
 		],
 	];
 
-	$wi->readCache();
-	$wi->config->extractAllGlobals( $wi->dbname );
-	$wgConf = $wi->config;
+	$wgWikiInitialize->readCache();
+	$wgWikiInitialize->config->extractAllGlobals( $wgWikiInitialize->dbname );
+	$wgConf = $wgWikiInitialize->config;
 }
 
 function wfInitDBConnection() {

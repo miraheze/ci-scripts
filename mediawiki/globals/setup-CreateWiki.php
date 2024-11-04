@@ -11,44 +11,7 @@ if ( file_exists( "$IP/extensions/CreateWiki/includes/WikiInitialize.php" ) ) {
 
 	require_once "$IP/extensions/CreateWiki/includes/WikiInitialize.php";
 
-	$wgHooks['MediaWikiServices'][] = 'insertWiki';
-}
-
-function insertWiki( MediaWikiServices $services ) {
-	wfLoadConfiguration();
-	/* try {
-		if ( getenv( 'WIKI_CREATION_SQL_EXECUTED' ) ) {
-			return;
-		}
-
-		$db = wfInitDBConnection();
-
-		$db->selectDomain( 'wikidb' );
-		$db->newInsertQueryBuilder()
-			->insertInto( 'cw_wikis' )
-			->ignore()
-			->row( [
-				'wiki_dbname' => 'wikidb',
-				'wiki_dbcluster' => 'c1',
-				'wiki_sitename' => 'TestWiki',
-				'wiki_language' => 'en',
-				'wiki_private' => 0,
-				'wiki_creation' => $db->timestamp(),
-				'wiki_category' => 'uncategorised',
-				'wiki_closed' => 0,
-				'wiki_deleted' => 0,
-				'wiki_locked' => 0,
-				'wiki_inactive' => 0,
-				'wiki_inactive_exempt' => 0,
-				'wiki_url' => 'http://127.0.0.1:9412',
-			] )
-			->caller( __METHOD__ )
-			->execute();
-
-		putenv( 'WIKI_CREATION_SQL_EXECUTED=true' );
-	} catch ( DBQueryError $e ) {
-		return;
-	} */
+	$wgHooks['MediaWikiServices'][] = 'wfLoadConfiguration';
 }
 
 function wfLoadConfiguration() {

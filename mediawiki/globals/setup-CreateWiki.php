@@ -16,7 +16,7 @@ if ( file_exists( "$IP/extensions/CreateWiki/includes/WikiInitialize.php" ) ) {
 
 function insertWiki( MediaWikiServices $services ) {
 	wfLoadConfiguration();
-	try {
+	/* try {
 		if ( getenv( 'WIKI_CREATION_SQL_EXECUTED' ) ) {
 			return;
 		}
@@ -48,7 +48,7 @@ function insertWiki( MediaWikiServices $services ) {
 		putenv( 'WIKI_CREATION_SQL_EXECUTED=true' );
 	} catch ( DBQueryError $e ) {
 		return;
-	}
+	} */
 }
 
 function wfLoadConfiguration() {

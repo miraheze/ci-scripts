@@ -1,6 +1,5 @@
 <?php
 
-use MediaWiki\MediaWikiServices;
 use Miraheze\CreateWiki\WikiInitialize;
 
 $wgWikimediaJenkinsCI = true;
@@ -48,13 +47,6 @@ function wfLoadConfiguration() {
 	$wgWikiInitialize->readCache();
 	$wgWikiInitialize->config->extractAllGlobals( $wgWikiInitialize->dbname );
 	$wgConf = $wgWikiInitialize->config;
-}
-
-function wfInitDBConnection() {
-	return MediaWikiServices::getInstance()->getDatabaseFactory()->create( 'mysql', [
-		'host' => $GLOBALS['wgDBserver'],
-		'user' => 'root',
-	] );
 }
 
 ?>

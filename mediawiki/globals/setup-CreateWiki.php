@@ -2,7 +2,6 @@
 
 use MediaWiki\MediaWikiServices;
 use Miraheze\CreateWiki\WikiInitialize;
-use Wikimedia\Rdbms\DBQueryError;
 
 $wgWikimediaJenkinsCI = true;
 

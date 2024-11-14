@@ -32,9 +32,14 @@ for d in get_dependencies('ext', dependencies, recurse):
   if d == 'parsoid':
     continue
 
-  # Temporary: Skip DiscussionTools because it is failing on 1.42
+  # Temporary: Skip DiscussionTools because it is failing on REL1_42
   # TODO: remove when REL1_43 is used in CI
   if d == 'DiscussionTools':
+    continue
+
+  # Temporary: Skip CommunityConfigurationExample because it does not exist on REL1_42
+  # TODO: remove when REL1_43 is used in CI
+  if d == 'CommunityConfigurationExample':
     continue
 
   d = 'mediawiki/extensions/' + d

@@ -2,8 +2,6 @@
 
 use Miraheze\CreateWiki\WikiInitialize;
 
-$wgWikimediaJenkinsCI = true;
-
 if ( file_exists( "$IP/extensions/CreateWiki/includes/WikiInitialize.php" ) ) {
 	define( 'CW_DB', 'wikidb' );
 

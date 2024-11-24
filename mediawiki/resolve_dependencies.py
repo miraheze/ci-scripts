@@ -1,4 +1,5 @@
 # A script to resolve dependencies of MediaWiki extension for Quibble test
+import os
 import sys
 import yaml
 
@@ -26,7 +27,7 @@ branch_rules = {
     },
     'only': {
         'DiscussionTools': {
-            'branches': ['default'],
+            'branches': ['master'],
             'reason': 'Inconsistently failing',
         },
     },
@@ -62,7 +63,7 @@ for d in get_dependencies('ext', dependencies, recurse):
             branch = dependencies['ext'][d]['branch']
 
     # Check if the dependency should be excluded
-    if should_exclude(d, branch or 'default'):
+    if should_exclude(d, branch or os.environ.get('MEDIAWIKI_VERSION')):
         continue
 
     if branch:

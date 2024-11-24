@@ -10,40 +10,67 @@ dependencies_file = sys.argv[1]
 
 recurse = True  # Default to recursion
 if len(sys.argv) >= 3 and sys.argv[2] == '--no-recurse':
-   recurse = False
+    recurse = False
 
 # Add dependencies of target extension
 with open(dependencies_file, 'r') as f:
     dependencies['ext'] = yaml.load(f, Loader=yaml.SafeLoader)
 
-# Resolve
-resolvedDependencies = []
+# Define rules for exclusions and inclusions
+branch_rules = {
+    'REL1_42': {
+        'exclude': {
+            'CommunityConfiguration': 'Fails without CommunityConfigurationExample on REL1_42',
+            'CommunityConfigurationExample': 'Does not exist on REL1_42',
+        },
+    },
+    'only': {
+        'DiscussionTools': {
+            'branches': ['default'],
+            'reason': 'Inconsistently failing',
+        },
+    },
+}
+
+def should_exclude(dependency, branch):
+    """Checks if a dependency should be excluded for a specific branch."""
+    # Exclusions specific to the branch
+    if branch in branch_rules and 'exclude' in branch_rules[branch]:
+        exclusions = branch_rules[branch]['exclude']
+        if dependency in exclusions:
+            print(f'Excluding {dependency} on {branch}: {exclusions[dependency]}', file=sys.stderr)
+            return True
+
+    # Exclusions defined in the 'only' rule
+    if dependency in branch_rules.get('only', {}):
+        only_rule = branch_rules['only'][dependency]
+        if branch not in only_rule['branches']:
+            print(f"Excluding {dependency} on {branch}: {only_rule['reason']}", file=sys.stderr)
+            return True
+
+    return False
+
+# Resolve dependencies
+resolved_dependencies = []
 for d in get_dependencies('ext', dependencies, recurse):
-  repo = ''
-  branch = ''
-  if d in dependencies['ext'] and 'repo' in dependencies['ext'][d]:
-    if dependencies['ext'][d]['repo'] != 'auto':
-      repo = '|' + dependencies['ext'][d]['repo']
-    if 'branch' in dependencies['ext'][d]:
-      if dependencies['ext'][d]['branch'] != 'auto':
-        branch = '|' + dependencies['ext'][d]['branch']
+    repo = ''
+    branch = ''
+    if d in dependencies['ext']:
+        if 'repo' in dependencies['ext'][d] and dependencies['ext'][d]['repo'] != 'auto':
+            repo = '|' + dependencies['ext'][d]['repo']
+        if 'branch' in dependencies['ext'][d] and dependencies['ext'][d]['branch'] != 'auto':
+            branch = dependencies['ext'][d]['branch']
 
-  # Skip parsoid which is a virtual extension
-  if d == 'parsoid':
-    continue
+    # Check if the dependency should be excluded
+    if should_exclude(d, branch or 'default'):
+        continue
 
-  # Temporary: Skip DiscussionTools because it is failing on REL1_42
-  # TODO: remove when REL1_43 is used in CI
-  if d == 'DiscussionTools':
-    continue
+    if branch:
+        branch = '|' + branch
 
-  # Temporary: Skip CommunityConfigurationExample because it does not exist on REL1_42
-  # TODO: remove when REL1_43 is used in CI
-  if d == 'CommunityConfigurationExample':
-    continue
+    d = 'mediawiki/extensions/' + d
+    d = d.replace('/extensions/skins/', '/skins/')
+    d = d + repo + branch
+    resolved_dependencies.append(d)
 
-  d = 'mediawiki/extensions/' + d
-  d = d.replace('/extensions/skins/', '/skins/')
-  d = d + repo + branch
-  resolvedDependencies.append(d)
-print(' '.join(resolvedDependencies))
+print(' '.join(resolved_dependencies))

@@ -20,15 +20,15 @@ function wfLoadConfiguration() {
 	$wgVirtualDomainsMapping['virtual-managewiki'] = [ 'db' => 'wikidb' ];
 	$wgVirtualDomainsMapping['virtual-managewiki-central'] = [ 'db' => 'wikidb' ];
 
-	$wgManageWikiPermissionsDefaultPrivateGroup = 'member';
+	// $wgManageWikiPermissionsDefaultPrivateGroup = 'member';
 
-	$wgManageWikiModulesEnabled = [
+	/* $wgManageWikiModulesEnabled = [
 		'core' => true,
 		'extensions' => true,
 		'namespaces' => true,
 		'permissions' => true,
 		'settings' => true,
-	];
+	]; */
 
 	$wgCreateWikiCacheDirectory = MW_INSTALL_PATH . '/cache';
 

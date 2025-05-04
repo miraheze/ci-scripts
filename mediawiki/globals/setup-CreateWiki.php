@@ -12,12 +12,23 @@ if ( file_exists( "$IP/extensions/CreateWiki/includes/WikiInitialize.php" ) ) {
 
 function wfLoadConfiguration() {
 	global $wgCreateWikiCacheDirectory, $wgConf, $wgWikiInitialize,
-		$wgVirtualDomainsMapping;
+		$wgVirtualDomainsMapping, $wgManageWikiPermissionsDefaultPrivateGroup,
+		$wgManageWikiModulesEnabled;
 
 	$wgVirtualDomainsMapping['virtual-createwiki'] = [ 'db' => 'wikidb' ];
 	$wgVirtualDomainsMapping['virtual-createwiki-central'] = [ 'db' => 'wikidb' ];
 	$wgVirtualDomainsMapping['virtual-managewiki'] = [ 'db' => 'wikidb' ];
 	$wgVirtualDomainsMapping['virtual-managewiki-central'] = [ 'db' => 'wikidb' ];
+
+	$wgManageWikiPermissionsDefaultPrivateGroup = 'member';
+
+	$wgManageWikiModulesEnabled = [
+		'core' => true,
+		'extensions' => true,
+		'namespaces' => true,
+		'permissions' => true,
+		'settings' => true,
+	];
 
 	$wgCreateWikiCacheDirectory = MW_INSTALL_PATH . '/cache';
 

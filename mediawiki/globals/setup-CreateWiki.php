@@ -16,6 +16,8 @@ function wfLoadConfiguration() {
 
 	$wgVirtualDomainsMapping['virtual-createwiki'] = [ 'db' => 'wikidb' ];
 	$wgVirtualDomainsMapping['virtual-createwiki-central'] = [ 'db' => 'wikidb' ];
+	$wgVirtualDomainsMapping['virtual-managewiki'] = [ 'db' => 'wikidb' ];
+	$wgVirtualDomainsMapping['virtual-managewiki-central'] = [ 'db' => 'wikidb' ];
 
 	$wgCreateWikiCacheDirectory = MW_INSTALL_PATH . '/cache';
 

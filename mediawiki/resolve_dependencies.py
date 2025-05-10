@@ -9,9 +9,10 @@ from pf import dependencies, get_dependencies
 # Get dependency file path from argument
 dependencies_file = sys.argv[1]
 
-recurse = True  # Default to recursion
+# Global default: recurse unless --no-recurse passed
+default_recurse = True
 if len(sys.argv) >= 3 and sys.argv[2] == '--no-recurse':
-    recurse = False
+    default_recurse = False
 
 # Add dependencies of target extension
 with open(dependencies_file, 'r') as f:
@@ -51,9 +52,14 @@ def should_exclude(dependency, branch):
 
     return False
 
+# Determine per-dependency override for recurse
+def should_recurse(dep_name):
+    config = dependencies['ext'].get(dep_name, {})
+    return config.get('recurse', default_recurse)
+
 # Resolve dependencies
 resolved_dependencies = []
-for d in get_dependencies('ext', dependencies, recurse):
+for d in get_dependencies('ext', dependencies, should_recurse):
     repo = ''
     branch = ''
     if d in dependencies['ext']:

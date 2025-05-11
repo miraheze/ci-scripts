@@ -66,7 +66,7 @@ def should_exclude(dependency, branch):
 
         current_repo = os.environ.get('GITHUB_REPOSITORY', '')
         if 'repos' in only_rule and current_repo in only_rule['repos'] and branch not in only_rule['branches']:
-            print(f"Excluding {dependency} for repo {current_repo}: {only_rule['reason']}", file=sys.stderr)
+            print(f"Excluding {dependency} on {branch} for repo {current_repo}: {only_rule['reason']}", file=sys.stderr)
             return True
 
     return False

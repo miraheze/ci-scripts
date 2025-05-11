@@ -31,6 +31,16 @@ branch_rules = {
             'repos': ['miraheze/MirahezeMagic'],
             'reason': 'Consistently failing',
         },
+        'Elastica': {
+            'branches': ['master'],
+            'repos': ['miraheze/MirahezeMagic'],
+            'reason': 'Since we are excluding CirrusSearch',
+        },
+        'GrowthExperiments': {
+            'branches': ['master'],
+            'repos': ['miraheze/MirahezeMagic'],
+            'reason': 'Requires CirrusSearch in tests',
+        },
     },
 }
 

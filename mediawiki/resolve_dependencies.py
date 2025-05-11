@@ -9,9 +9,10 @@ from pf import dependencies, get_dependencies
 # Get dependency file path from argument
 dependencies_file = sys.argv[1]
 
-recurse = True  # Default to recursion
+# Global default: recurse unless --no-recurse passed
+default_recurse = True
 if len(sys.argv) >= 3 and sys.argv[2] == '--no-recurse':
-    recurse = False
+    default_recurse = False
 
 # Add dependencies of target extension
 with open(dependencies_file, 'r') as f:
@@ -34,7 +35,19 @@ branch_rules = {
 }
 
 def should_exclude(dependency, branch):
-    """Checks if a dependency should be excluded for a specific branch."""
+    """
+    Determines whether a dependency should be excluded for a given branch.
+    
+    Checks branch-specific exclusion and inclusion rules to decide if the dependency
+    should be skipped. Prints the exclusion reason to standard error if excluded.
+    
+    Args:
+        dependency: The name of the dependency to check.
+        branch: The branch name to evaluate rules against.
+    
+    Returns:
+        True if the dependency should be excluded for the branch, False otherwise.
+    """
     # Exclusions specific to the branch
     if branch in branch_rules and 'exclude' in branch_rules[branch]:
         exclusions = branch_rules[branch]['exclude']
@@ -51,9 +64,26 @@ def should_exclude(dependency, branch):
 
     return False
 
+# Determine per-dependency override for recurse
+def should_recurse(dep_name):
+    """
+    Determines whether to recurse into a dependency during resolution.
+    
+    Checks the dependency's configuration for a 'recurse' override; if not set,
+    returns the global default recursion setting.
+    
+    Args:
+        dep_name: The name of the dependency to check.
+    
+    Returns:
+        True if recursion should occur for this dependency, otherwise False.
+    """
+    config = dependencies['ext'].get(dep_name, {})
+    return config.get('recurse', default_recurse)
+
 # Resolve dependencies
 resolved_dependencies = []
-for d in get_dependencies('ext', dependencies, recurse):
+for d in get_dependencies('ext', dependencies, should_recurse):
     repo = ''
     branch = ''
     if d in dependencies['ext']:

@@ -40,6 +40,11 @@ branch_rules = {
             'repos': ['miraheze/MirahezeMagic'],
             'reason': 'Requires GrowthExperiments in tests',
         },
+        'IPInfo': {
+            'branches': ['master'],
+            'repos': ['miraheze/MirahezeMagic'],
+            'reason': 'Requires CheckUser in tests',
+        },
     },
 }
 

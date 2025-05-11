@@ -19,12 +19,6 @@ with open(dependencies_file, 'r') as f:
 
 # Define rules for exclusions and inclusions
 branch_rules = {
-    'REL1_42': {
-        'exclude': {
-            'CommunityConfiguration': 'Fails without CommunityConfigurationExample on REL1_42',
-            'CommunityConfigurationExample': 'Does not exist on REL1_42',
-        },
-    },
     'only': {
         'CirrusSearch': {
             'branches': ['master'],
@@ -40,6 +34,11 @@ branch_rules = {
             'branches': ['master'],
             'repos': ['miraheze/MirahezeMagic'],
             'reason': 'Requires CirrusSearch in tests',
+        },
+        'CheckUser': {
+            'branches': ['master'],
+            'repos': ['miraheze/MirahezeMagic'],
+            'reason': 'Requires GrowthExperiments in tests',
         },
     },
 }

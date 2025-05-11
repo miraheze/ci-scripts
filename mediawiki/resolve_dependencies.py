@@ -9,22 +9,13 @@ from pf import dependencies, get_dependencies
 # Get dependency file path from argument
 dependencies_file = sys.argv[1]
 
-# Global default: recurse unless --no-recurse passed
-default_recurse = True
+recurse = True  # Default to recursion
 if len(sys.argv) >= 3 and sys.argv[2] == '--no-recurse':
-    default_recurse = False
+    recurse = False
 
 # Add dependencies of target extension
 with open(dependencies_file, 'r') as f:
-    loaded_yaml = yaml.load(f, Loader=yaml.SafeLoader)
-
-# Check for top-level recurse override
-configured_recurse = loaded_yaml.pop('recurse', None)
-if isinstance(configured_recurse, bool):
-    default_recurse = configured_recurse
-
-# Assign the remaining keys to dependencies['ext']
-dependencies['ext'] = loaded_yaml
+    dependencies['ext'] = yaml.load(f, Loader=yaml.SafeLoader)
 
 # Define rules for exclusions and inclusions
 branch_rules = {
@@ -43,19 +34,7 @@ branch_rules = {
 }
 
 def should_exclude(dependency, branch):
-    """
-    Determines whether a dependency should be excluded for a given branch.
-    
-    Checks branch-specific exclusion and inclusion rules to decide if the dependency
-    should be skipped. Prints the exclusion reason to standard error if excluded.
-    
-    Args:
-        dependency: The name of the dependency to check.
-        branch: The branch name to evaluate rules against.
-    
-    Returns:
-        True if the dependency should be excluded for the branch, False otherwise.
-    """
+    """Checks if a dependency should be excluded for a specific branch."""
     # Exclusions specific to the branch
     if branch in branch_rules and 'exclude' in branch_rules[branch]:
         exclusions = branch_rules[branch]['exclude']
@@ -74,7 +53,7 @@ def should_exclude(dependency, branch):
 
 # Resolve dependencies
 resolved_dependencies = []
-for d in get_dependencies('ext', dependencies, default_recurse):
+for d in get_dependencies('ext', dependencies, recurse):
     repo = ''
     branch = ''
     if d in dependencies['ext']:

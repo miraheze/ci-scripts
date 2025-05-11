@@ -35,7 +35,19 @@ branch_rules = {
 }
 
 def should_exclude(dependency, branch):
-    """Checks if a dependency should be excluded for a specific branch."""
+    """
+    Determines whether a dependency should be excluded for a given branch.
+    
+    Checks branch-specific exclusion and inclusion rules to decide if the dependency
+    should be skipped. Prints the exclusion reason to standard error if excluded.
+    
+    Args:
+        dependency: The name of the dependency to check.
+        branch: The branch name to evaluate rules against.
+    
+    Returns:
+        True if the dependency should be excluded for the branch, False otherwise.
+    """
     # Exclusions specific to the branch
     if branch in branch_rules and 'exclude' in branch_rules[branch]:
         exclusions = branch_rules[branch]['exclude']
@@ -54,6 +66,18 @@ def should_exclude(dependency, branch):
 
 # Determine per-dependency override for recurse
 def should_recurse(dep_name):
+    """
+    Determines whether to recurse into a dependency during resolution.
+    
+    Checks the dependency's configuration for a 'recurse' override; if not set,
+    returns the global default recursion setting.
+    
+    Args:
+        dep_name: The name of the dependency to check.
+    
+    Returns:
+        True if recursion should occur for this dependency, otherwise False.
+    """
     config = dependencies['ext'].get(dep_name, {})
     return config.get('recurse', default_recurse)
 

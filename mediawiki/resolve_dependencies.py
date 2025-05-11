@@ -36,12 +36,12 @@ branch_rules = {
             'reason': 'Requires CirrusSearch in tests',
         },
         'CheckUser': {
-            'branches': ['master'],
+            'branches': ['master', 'REL1_43'],
             'repos': ['miraheze/MirahezeMagic'],
             'reason': 'Requires GrowthExperiments in tests',
         },
         'IPInfo': {
-            'branches': ['master'],
+            'branches': ['master', 'REL1_43'],
             'repos': ['miraheze/MirahezeMagic'],
             'reason': 'Requires CheckUser in tests',
         },

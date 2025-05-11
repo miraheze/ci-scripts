@@ -26,9 +26,10 @@ branch_rules = {
         },
     },
     'only': {
-        'DiscussionTools': {
+        'CirrusSearch': {
             'branches': ['master'],
-            'reason': 'Inconsistently failing',
+            'repos': ['miraheze/MirahezeMagic'],
+            'reason': 'Consistently failing',
         },
     },
 }
@@ -43,10 +44,15 @@ def should_exclude(dependency, branch):
             return True
 
     # Exclusions defined in the 'only' rule
-    if dependency in branch_rules.get('only', {}):
-        only_rule = branch_rules['only'][dependency]
+    only_rule = branch_rules.get('only', {}).get(dependency)
+    if only_rule:
         if branch not in only_rule['branches']:
             print(f"Excluding {dependency} on {branch}: {only_rule['reason']}", file=sys.stderr)
+            return True
+
+        current_repo = os.environ.get('GITHUB_REPOSITORY', '')
+        if 'repos' in only_rule and current_repo not in only_rule['repos']:
+            print(f"Excluding {dependency} for repo {current_repo}: {only_rule['reason']}", file=sys.stderr)
             return True
 
     return False

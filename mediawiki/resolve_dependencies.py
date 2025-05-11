@@ -16,7 +16,15 @@ if len(sys.argv) >= 3 and sys.argv[2] == '--no-recurse':
 
 # Add dependencies of target extension
 with open(dependencies_file, 'r') as f:
-    dependencies['ext'] = yaml.load(f, Loader=yaml.SafeLoader)
+    loaded_yaml = yaml.load(f, Loader=yaml.SafeLoader)
+
+# Check for top-level recurse override
+configured_recurse = loaded_yaml.pop('recurse', None)
+if isinstance(configured_recurse, bool):
+    default_recurse = configured_recurse
+
+# Assign the remaining keys to dependencies['ext']
+dependencies['ext'] = loaded_yaml
 
 # Define rules for exclusions and inclusions
 branch_rules = {
@@ -64,26 +72,9 @@ def should_exclude(dependency, branch):
 
     return False
 
-# Determine per-dependency override for recurse
-def should_recurse(dep_name):
-    """
-    Determines whether to recurse into a dependency during resolution.
-    
-    Checks the dependency's configuration for a 'recurse' override; if not set,
-    returns the global default recursion setting.
-    
-    Args:
-        dep_name: The name of the dependency to check.
-    
-    Returns:
-        True if recursion should occur for this dependency, otherwise False.
-    """
-    config = dependencies['ext'].get(dep_name, {})
-    return config.get('recurse', default_recurse)
-
 # Resolve dependencies
 resolved_dependencies = []
-for d in get_dependencies('ext', dependencies, should_recurse):
+for d in get_dependencies('ext', dependencies, default_recurse):
     repo = ''
     branch = ''
     if d in dependencies['ext']:

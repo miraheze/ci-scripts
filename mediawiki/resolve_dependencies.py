@@ -20,6 +20,11 @@ with open(dependencies_file, 'r') as f:
 # Define rules for exclusions and inclusions
 branch_rules = {
     'only': {
+        'CheckUser': {
+            'branches': ['master', 'REL1_43'],
+            'repos': ['miraheze/MirahezeMagic'],
+            'reason': 'Requires GrowthExperiments in tests',
+        },
         'CirrusSearch': {
             'branches': ['master'],
             'repos': ['miraheze/MirahezeMagic'],
@@ -34,11 +39,6 @@ branch_rules = {
             'branches': ['master'],
             'repos': ['miraheze/MirahezeMagic'],
             'reason': 'Requires CirrusSearch in tests',
-        },
-        'CheckUser': {
-            'branches': ['master', 'REL1_43'],
-            'repos': ['miraheze/MirahezeMagic'],
-            'reason': 'Requires GrowthExperiments in tests',
         },
         'IPInfo': {
             'branches': ['master', 'REL1_43'],

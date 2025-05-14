@@ -2,10 +2,10 @@
 
 use Miraheze\CreateWiki\WikiInitialize;
 
-if ( file_exists( "$IP/extensions/CreateWiki/includes/WikiInitialize.php" ) ) {
+if ( file_exists( MW_INSTALL_PATH . '/extensions/CreateWiki/includes/WikiInitialize.php' ) ) {
 	define( 'CW_DB', 'wikidb' );
 
-	require_once "$IP/extensions/CreateWiki/includes/WikiInitialize.php";
+	require_once MW_INSTALL_PATH . '/extensions/CreateWiki/includes/WikiInitialize.php';
 
 	$wgHooks['MediaWikiServices'][] = 'wfLoadConfiguration';
 }
@@ -37,10 +37,10 @@ function wfLoadConfiguration() {
 	$wgWikiInitialize->setVariables(
 		MW_INSTALL_PATH . '/cache',
 		[
-			''
+			'',
 		],
 		[
-			'127.0.0.1' => ''
+			'127.0.0.1' => '',
 		]
 	);
 

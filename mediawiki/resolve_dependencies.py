@@ -13,6 +13,9 @@ recurse = True  # Default to recursion
 if len(sys.argv) >= 3 and sys.argv[2] == '--no-recurse':
     recurse = False
 
+# Due to how ManageWiki works we only want explicit dependencies,
+# otherwise we may get hundreds of test failures from extensions due to
+# config or permission overrides.
 if 'miraheze/ManageWiki' in os.environ.get('GITHUB_REPOSITORY', ''):
     recurse = False
 

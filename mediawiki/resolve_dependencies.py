@@ -13,7 +13,7 @@ recurse = True  # Default to recursion
 if len(sys.argv) >= 3 and sys.argv[2] == '--no-recurse':
     recurse = False
 
-if os.environ.get('GITHUB_REPOSITORY', '') is 'miraheze/ManageWiki':
+if 'miraheze/ManageWiki' in os.environ.get('GITHUB_REPOSITORY', ''):
     recurse = False
 
 # Add dependencies of target extension

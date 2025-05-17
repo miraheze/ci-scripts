@@ -22,13 +22,13 @@ function wfLoadConfiguration() {
 
 	// $wgManageWikiPermissionsDefaultPrivateGroup = 'member';
 
-	/* $wgManageWikiModulesEnabled = [
+	$wgManageWikiModulesEnabled = [
 		'core' => true,
 		'extensions' => true,
 		'namespaces' => true,
-		'permissions' => true,
+		'permissions' => false,
 		'settings' => true,
-	]; */
+	];
 
 	$wgCreateWikiCacheDirectory = MW_INSTALL_PATH . '/cache';
 

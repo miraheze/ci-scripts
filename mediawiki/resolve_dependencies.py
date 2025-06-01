@@ -51,6 +51,10 @@ branch_rules = {
             'repos': ['miraheze/MirahezeMagic'],
             'reason': 'Requires CheckUser in tests',
         },
+        'WebAuthn': {
+            'branches': ['master'],
+            'reason': 'Composer failures with PHP 8.2',
+        },
     },
 }
 

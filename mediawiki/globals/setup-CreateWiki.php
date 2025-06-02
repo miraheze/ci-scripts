@@ -27,6 +27,7 @@ function wfLoadConfiguration() {
 	$wgManageWikiModulesEnabled['core'] = true;
 	$wgManageWikiModulesEnabled['extensions'] = true;
 	$wgManageWikiModulesEnabled['namespaces'] = true;
+	$wgManageWikiModulesEnabled['permissions'] = true;
 	$wgManageWikiModulesEnabled['settings'] = true;
 
 	$wgCreateWikiCacheDirectory = MW_INSTALL_PATH . '/cache';

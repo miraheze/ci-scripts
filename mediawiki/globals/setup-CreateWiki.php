@@ -14,7 +14,7 @@ function wfLoadConfiguration() {
 	global $wgCreateWikiCacheDirectory, $wgConf, $wgWikiInitialize,
 		$wgVirtualDomainsMapping, $wgManageWikiPermissionsDefaultPrivateGroup,
 		$wgManageWikiPermissionsAdditionalRights, $wgManageWikiModulesEnabled,
-		$wgCreateWikiUsePrivateWikis;
+		$wgManageWikiCacheDirectory, $wgCreateWikiUsePrivateWikis;
 
 	$wgVirtualDomainsMapping['virtual-createwiki'] = [ 'db' => 'wikidb' ];
 	$wgVirtualDomainsMapping['virtual-createwiki-central'] = [ 'db' => 'wikidb' ];
@@ -33,6 +33,8 @@ function wfLoadConfiguration() {
 
 	$wgCreateWikiCacheDirectory = MW_INSTALL_PATH . '/cache';
 	$wgCreateWikiUsePrivateWikis = false;
+
+	$wgManageWikiCacheDirectory = MW_INSTALL_PATH . '/cache';
 
 	$wgWikiInitialize = new WikiInitialize();
 

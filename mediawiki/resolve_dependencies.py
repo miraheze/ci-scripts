@@ -25,9 +25,14 @@ with open(dependencies_file, 'r') as f:
 
 # Define rules for exclusions and inclusions
 branch_rules = {
+    'REL1_44': {
+        'exclude': {
+            'PageViewInfo': 'Fails without the Graph extension on REL1_44 only',
+        },
+    },
     'only': {
         'CheckUser': {
-            'branches': ['master', 'REL1_43'],
+            'branches': ['master'],
             'repos': ['miraheze/MirahezeMagic'],
             'reason': 'Requires GrowthExperiments in tests',
         },
@@ -47,7 +52,7 @@ branch_rules = {
             'reason': 'Requires CirrusSearch in tests',
         },
         'IPInfo': {
-            'branches': ['master', 'REL1_43'],
+            'branches': ['master'],
             'repos': ['miraheze/MirahezeMagic'],
             'reason': 'Requires CheckUser in tests',
         },

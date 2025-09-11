@@ -33,7 +33,6 @@ branch_rules = {
     'only': {
         'CheckUser': {
             'branches': ['master'],
-            'repos': ['miraheze/MirahezeMagic'],
             'reason': 'Requires GrowthExperiments in tests',
         },
         'CirrusSearch': {
@@ -48,12 +47,10 @@ branch_rules = {
         },
         'GrowthExperiments': {
             'branches': ['master'],
-            'repos': ['miraheze/MirahezeMagic'],
-            'reason': 'Requires CirrusSearch in tests',
+            'reason': 'Requires CirrusSearch in tests and is failing on REL1_44',
         },
         'IPInfo': {
             'branches': ['master'],
-            'repos': ['miraheze/MirahezeMagic'],
             'reason': 'Requires CheckUser in tests',
         },
         'WebAuthn': {

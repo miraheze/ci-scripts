@@ -33,6 +33,7 @@ branch_rules = {
     },
     'REL1_45': {
         'exclude': {
+            'MobileFrontend': 'Causes issues with DiscussionTools tests',
             'TestKitchen': 'Doesn\'t exist as itself; labeled as MetricsPlatform',
         },
     },

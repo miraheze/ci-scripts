@@ -28,6 +28,12 @@ branch_rules = {
     'REL1_44': {
         'exclude': {
             'PageViewInfo': 'Fails without the Graph extension on REL1_44 only',
+            'TestKitchen': 'Doesn\'t exist as itself; labeled as MetricsPlatform',
+        },
+    },
+    'REL1_45': {
+        'exclude': {
+            'TestKitchen': 'Doesn\'t exist as itself; labeled as MetricsPlatform',
         },
     },
     'only': {

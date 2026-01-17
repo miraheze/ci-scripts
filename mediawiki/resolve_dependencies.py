@@ -35,6 +35,7 @@ branch_rules = {
         'exclude': {
             'DiscussionTools': 'Unrelated test failures',
             'MobileFrontend': 'Unrelated test failures',
+            'SecurePoll': 'Unrelated test failures',
             'TestKitchen': 'Doesn\'t exist as itself; labeled as MetricsPlatform',
         },
     },

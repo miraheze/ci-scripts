@@ -25,12 +25,6 @@ with open(dependencies_file, 'r') as f:
 
 # Define rules for exclusions and inclusions
 branch_rules = {
-    'REL1_44': {
-        'exclude': {
-            'PageViewInfo': 'Fails without the Graph extension on REL1_44 only',
-            'TestKitchen': 'Doesn\'t exist as itself; labeled as MetricsPlatform',
-        },
-    },
     'REL1_45': {
         'exclude': {
             'DiscussionTools': 'Unrelated test failures',
@@ -56,7 +50,7 @@ branch_rules = {
         },
         'GrowthExperiments': {
             'branches': ['master'],
-            'reason': 'Requires CirrusSearch in tests and is failing on REL1_44',
+            'reason': 'Requires CirrusSearch in tests and is failing on REL1_45',
         },
         'IPInfo': {
             'branches': ['master'],

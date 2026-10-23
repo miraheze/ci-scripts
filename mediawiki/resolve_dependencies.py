@@ -24,44 +24,7 @@ with open(dependencies_file, 'r') as f:
     dependencies['ext'] = yaml.load(f, Loader=yaml.SafeLoader)
 
 # Define rules for exclusions and inclusions
-branch_rules = {
-    'REL1_45': {
-        'exclude': {
-            'DiscussionTools': 'Unrelated test failures',
-            'MobileFrontend': 'Unrelated test failures',
-            'SecurePoll': 'Unrelated test failures',
-            'TestKitchen': 'Doesn\'t exist as itself; labeled as MetricsPlatform',
-        },
-    },
-    'only': {
-        'CheckUser': {
-            'branches': ['master'],
-            'reason': 'Requires GrowthExperiments in tests',
-        },
-        'CirrusSearch': {
-            'branches': ['master'],
-            'repos': ['miraheze/MirahezeMagic'],
-            'reason': 'Consistently failing',
-        },
-        'Elastica': {
-            'branches': ['master'],
-            'repos': ['miraheze/MirahezeMagic'],
-            'reason': 'Since we are excluding CirrusSearch',
-        },
-        'GrowthExperiments': {
-            'branches': ['master'],
-            'reason': 'Requires CirrusSearch in tests and is failing on REL1_45',
-        },
-        'IPInfo': {
-            'branches': ['master'],
-            'reason': 'Requires CheckUser in tests',
-        },
-        'WebAuthn': {
-            'branches': ['master'],
-            'reason': 'Composer failures with PHP 8.2',
-        },
-    },
-}
+branch_rules = {}
 
 def should_exclude(dependency, branch):
     """Checks if a dependency should be excluded for a specific branch."""
